@@ -39,3 +39,9 @@ export interface MoviePageProps {
   movie: MovieDetailsProps;
   images: MovieImage[];
 }
+export interface MovieDetailsProps extends BaseMovieProps {
+  production_countries: {
+    id: number;
+    name: string;
+  }[];
+}
