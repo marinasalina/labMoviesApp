@@ -41,18 +41,18 @@ const MovieHeader: React.FC<MovieDetailsProps> = (movie) => {
             sx={{
               backgroundColor: "red",
               display: "inline-flex",
-              marginLeft: "10px",
+              marginRight: "100px",
             }}
           >
             <FavoriteIcon />
           </Avatar>
-        )}
-        {movie.title}{" "}
+        )}{" "}
+        {movie.title}
         <a href={movie.homepage}>
-          <HomeIcon color="primary" fontSize="large" />
+          <HomeIcon color="primary" fontSize="small" />
         </a>
         <br />
-        <span>{movie.tagline}</span>
+        <span>"{movie.tagline}"</span>
       </Typography>
 
       <IconButton aria-label="go forward">
