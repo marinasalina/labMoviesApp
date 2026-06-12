@@ -5,7 +5,9 @@ import PageTemplate from "../components/templateMoviePage";
 import useMovie from "../hooks/useMovie";
 
 const MovieDetailsPage: React.FC = () => {
+  // Get the movie id from the URL
   const { id } = useParams();
+  // uses the custom hook to fetch the movie details
   const [movie] = useMovie(id ?? "");
 
   return (
