@@ -1,31 +1,24 @@
-import React from "react";
-import { useQuery } from "react-query";
-import { getUpcomingMovies } from "../api/tmdb-api";
-import Spinner from "../components/spinner";
-import PageTemplate from "../components/templateMovieListPage";
-//import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
+import React, { useEffect, useState } from "react";
 import { BaseMovieProps } from "../types/interfaces";
+import { getUpcomingMovies } from "../api/tmdb-api";
+import PageTemplate from "../components/templateMovieListPage";
+import AddToMustWatchIcon from "../components/cardIcons/addToMustWatch";
 
-import AddToMustWatchIcon from "../components/cardIcons/addToMustWatch"; //new
 const UpcomingMoviesPage: React.FC = () => {
-  // Fetch upcoming movies using React Query
-  const {
-    data: movies,
-    error,
-    isLoading,
-    isError,
-  } = useQuery<BaseMovieProps[], Error>("upcoming", getUpcomingMovies);
-  // Display a loading spinner while data is being fetched
-  if (isLoading) return <Spinner />;
+  // State for storing upcoming movies
+  const [movies, setMovies] = useState<BaseMovieProps[]>([]);
 
-  // Display an error message if the request fails
-  if (isError) return <h1>{error.message}</h1>;
-  // Render the list of upcoming movies and provide
-  // the Add to Favourites action for each movie card
+  // Fetch upcoming movies when the page loads
+  useEffect(() => {
+    getUpcomingMovies().then((movies) => {
+      setMovies(movies);
+    });
+  }, []);
+
   return (
     <PageTemplate
       title="Upcoming Movies"
-      movies={movies || []}
+      movies={movies}
       action={() => <AddToMustWatchIcon />}
     />
   );
