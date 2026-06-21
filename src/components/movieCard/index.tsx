@@ -15,6 +15,8 @@ import { BaseMovieProps } from "../../types/interfaces";
 import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import { MoviesContext } from "../../contexts/moviesContext";
+import MustWatchIcon from "../../images/add-to-playlist.png";
+
 const styles = {
   card: { maxWidth: 345 },
   media: { height: 500 },
@@ -29,6 +31,8 @@ interface MovieCardProps {
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie, action }) => {
+  const { mustWatch } = useContext(MoviesContext);
+  const isMustWatch = mustWatch.includes(movie.id);
   const { favourites, addToFavourites } = useContext(MoviesContext); //NEW
 
   const isFavourite = favourites.find((id) => id === movie.id) ? true : false; //NEW
@@ -37,7 +41,19 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, action }) => {
     <Card sx={styles.card}>
       <CardHeader
         avatar={
-          isFavourite ? ( //CHANGED
+          isMustWatch ? (
+            <Avatar sx={{ backgroundColor: "red", width: 24, height: 24 }}>
+              <img
+                src={MustWatchIcon}
+                alt="Must Watch"
+                style={{
+                  width: 16,
+                  height: 16,
+                  filter: "invert(1)",
+                }}
+              />
+            </Avatar>
+          ) : isFavourite ? (
             <Avatar sx={styles.avatar}>
               <FavoriteIcon />
             </Avatar>
@@ -45,11 +61,10 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, action }) => {
         }
         title={
           <Typography variant="h5" component="p">
-            {movie.title}{" "}
+            {movie.title}
           </Typography>
         }
       />
-
       <CardMedia
         sx={styles.media}
         image={
