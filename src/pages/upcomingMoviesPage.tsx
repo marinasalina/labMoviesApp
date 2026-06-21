@@ -3,9 +3,10 @@ import { useQuery } from "react-query";
 import { getUpcomingMovies } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import PageTemplate from "../components/templateMovieListPage";
-import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
+//import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
 import { BaseMovieProps } from "../types/interfaces";
 
+import AddToMustWatchIcon from "../components/cardIcons/addToMustWatch"; //new
 const UpcomingMoviesPage: React.FC = () => {
   // Fetch upcoming movies using React Query
   const {
@@ -25,7 +26,7 @@ const UpcomingMoviesPage: React.FC = () => {
     <PageTemplate
       title="Upcoming Movies"
       movies={movies || []}
-      action={(movie: BaseMovieProps) => <AddToFavouritesIcon {...movie} />}
+      action={() => <AddToMustWatchIcon />}
     />
   );
 };
